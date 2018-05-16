@@ -1,6 +1,6 @@
 # Live Sentiment Analysis of Twitter
 
-6 classifiers - NaiveBayesClassifier , MultinomialNB , BernoulliNB , LogisticRegression , SGDClassifier , LinearSVC are used .The dataset used consists of two text files - one which contains positive MOVIE reviews (positive.txt) and other negative MOVIE reviews (negative.txt) . All these classifiers were passed in class named 'VoteClassifier' which returns the confidence value .
+6 classifiers - NaiveBayesClassifier , MultinomialNB , BernoulliNB , LogisticRegression , SGDClassifier , LinearSVC are used .The dataset used to train the model consists of two text files - one which contains positive MOVIE reviews (positive.txt) and other negative MOVIE reviews (negative.txt) . All these classifiers were passed in class named 'VoteClassifier' which returns the confidence value .
 
 This model is saved as sentiment_mod.py
 
