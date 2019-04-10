@@ -10,46 +10,23 @@ from nltk.classify import ClassifierI
 from statistics import mode
 
 
-class VoteClassifier(ClassifierI):
-    def __init__(self , *classifiers):  #passing a list of classifiers
-        self._classifiers = classifiers  #for all classifiers
-
-    def classify(self , features):
-        votes = []
-        for c in self._classifiers:
-            v = c.classify(features)
-            votes.append(v)
-
-        return mode(votes)
-
-    def confidence(self , features):
-        votes = []
-        for c in self._classifiers:
-            v = c.classify(features)
-            votes.append(v)
-
-        choice_votes = votes.count(mode(votes))
-        conf = choice_votes / len(votes)
-        return conf
-
-
 short_pos = open("positive.txt","r", encoding='utf-8', errors='replace').read()
 short_neg = open("negative.txt","r", encoding='utf-8', errors='replace').read()
 
 documents = []
 all_words = []
-allowed_word_types = ['J']
+allowed_word_types = ['J']              # J stands for words which are adjectives. We wil consider adjectives only 
 
 for r in short_pos.split('\n'):
-    documents.append(('r','pos'))
+    documents.append((r,'pos'))
     words = word_tokenize(r)
-    pos = nltk.pos_tag(words)
+    pos = nltk.pos_tag(words)           # pos_tag = Part of Speech tagging to know which words are adjectives
     for w in pos:
         if w[1][0] in allowed_word_types:
             all_words.append(w[0].lower())
 
 for r in short_neg.split('\n'):
-    documents.append(('r','neg'))
+    documents.append((r,'neg'))
     words = word_tokenize(r)
     pos = nltk.pos_tag(words)
     for w in pos:
@@ -77,7 +54,7 @@ def find_features(document):
     words = word_tokenize(document)
     features = {}
     for w in word_features:
-        features[w] = (w in words) #returns boolean whether that word is present in top 5000 words
+        features[w] = (w in words)      #returns boolean whether that word is present in top 5000 words
         
     return features
 
@@ -155,19 +132,4 @@ print("LinearSVC_classifier accuracy percent:", (nltk.classify.accuracy(LinearSV
 save_classifier = open('pickled_algos/LinearSVC_classifier','wb')
 pickle.dump(LinearSVC_classifier , save_classifier)
 save_classifier.close()
-
-#---------------------------------------------------------------------------------------------------------------------#
-voted_classifier = VoteClassifier(classifier,
-                                  MNB_classifier,
-                                  BernoulliNB_classifier,
-                                  LogisticRegression_classifier,
-                                  SGDClassifier_classifier,
-                                  LinearSVC_classifier)
-
-
-
-
-def sentiment(text):
-    feats = find_features(text)
-    return voted_classifier.classify(feats),voted_classifier.confidence(feats)
                                
