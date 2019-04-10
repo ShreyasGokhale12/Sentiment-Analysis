@@ -4,8 +4,7 @@ import pickle
 from nltk.tokenize import word_tokenize
 from nltk.classify.scikitlearn import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
-from sklearn.linear_model import LogisticRegression,SGDClassifier
-from sklearn.svm import SVC, LinearSVC
+from sklearn.linear_model import LogisticRegression
 from nltk.classify import ClassifierI
 from statistics import mode
 
@@ -115,21 +114,4 @@ save_classifier.close()
 
 #---------------------------------------------------------------------------------------------------------------------#
 
-SGDClassifier_classifier = SklearnClassifier(SGDClassifier())
-SGDClassifier_classifier.train(training_set)
-print("SGDClassifier_classifier accuracy percent:", (nltk.classify.accuracy(SGDClassifier_classifier, testing_set))*100)
-
-save_classifier = open('pickled_algos/SGDClassifier_classifier','wb')
-pickle.dump(SGDClassifier_classifier , save_classifier)
-save_classifier.close()
-
-#---------------------------------------------------------------------------------------------------------------------#
-
-LinearSVC_classifier = SklearnClassifier(LinearSVC())
-LinearSVC_classifier.train(training_set)
-print("LinearSVC_classifier accuracy percent:", (nltk.classify.accuracy(LinearSVC_classifier, testing_set))*100)
-
-save_classifier = open('pickled_algos/LinearSVC_classifier','wb')
-pickle.dump(LinearSVC_classifier , save_classifier)
-save_classifier.close()
                                
