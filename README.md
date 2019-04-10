@@ -1,13 +1,7 @@
-# Live Sentiment Analysis of Twitter
+There are 2 almost similar ways I used to train classifier for sentiment analysis
+ 
+1st method:
+The ipython notebook Processing.ipynb uses CountVectorizer from sklearn package to create a bag of words. The features of the classifier are vectors of whether a particular word from bag of words is present in the movie review and length of that particular movie review. The labels are 0(negative) and 1(positive). By adding more and different words to bag of words, the accuracy of classification increased to maximum of 70%. ModelTraining.ipynb contains training of model. This task was part of a kaggle competetion on sentiment analysis on the given dataset. I learnt about CountVectorizer from discussion forums of the competition 
 
-6 classifiers - NaiveBayesClassifier , MultinomialNB , BernoulliNB , LogisticRegression , SGDClassifier , LinearSVC are used .The dataset used to train the model consists of two text files - one which contains positive MOVIE reviews (positive.txt) and other negative MOVIE reviews (negative.txt) . All these classifiers were passed in class named 'VoteClassifier' which returns the confidence value .
-
-This model is saved as sentiment_mod.py
-
-sentiment_mod.py is loaded into the file twittersentimentanalysis.py The keys are obtained by creating a Twitter App from Twitter account. By using the module 'tweepy' and json , all live tweets on a particular topic say 'car' are loaded . These tweets are then passed through the above model . The tweets having confidence value greater than or equal to 0.8 are saved in a file 'twitter-out.txt'
-
-Live Matlotlib plotting is then used to create a graph of the tweets saved in 'twitter-out.txt' 
-
-
-
-
+2nd method:
+While I was studying Natural Language Toolkit, I came across online articles explaining Sentiment Analysis. This code has some variations from the article I referred to. positive.txt contains positive movie reviews and negative.txt conttains negative movie reviews
